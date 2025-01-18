@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Farmer {
+  id         String      @id @default(uuid()) @db.Uuid
+  name       String
+  document    String      @unique
+  properties Farm[]
+
+  @@index([document], name: "idx_farmer_cpf_cnpj")
+  @@map("farmer")
+}
+
+model Farm {
+  id               String     @id @default(uuid()) @db.Uuid
+  name             String
+  city             String
+  state            String
+  totalArea        Float
+  arableArea       Float
+  vegetationArea   Float
+  farmerId         String     @db.Uuid
+  farmer           Farmer     @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+  crops            Crop[]
+  harvests         Harvest[]
+
+  @@index([farmerId], name: "idx_farm_farmerId")
+  @@map("farm")
+}
+
+model Harvest {
+  id        String   @id @default(uuid()) @db.Uuid
+  year      Int
+  crops     Crop[]
+  farmId    String   @db.Uuid
+  farm      Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
+
+  @@index([farmId], name: "idx_harvest_farmId")
+  @@map("harvest")
+}
+
+model Crop {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  harvestId String   @db.Uuid
+  harvest   Harvest  @relation(fields: [harvestId], references: [id], onDelete: Cascade)
+  farmId    String   @db.Uuid
+  farm      Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
+
+  @@index([harvestId], name: "idx_crop_harvestId")
+  @@index([farmId], name: "idx_crop_farmId")
+  @@map("crop")
+}
