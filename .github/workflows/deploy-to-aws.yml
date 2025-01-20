@@ -50,6 +50,6 @@ jobs:
       - name: Deploy to ECS
         run: |
           aws ecs update-service \
-            --cluster my-cluster \
-            --service my-service \
+            --cluster my-cluster-wes-teste \
+            --service my-service-wes-teste \
             --force-new-deployment
