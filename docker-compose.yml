@@ -13,3 +13,22 @@ services:
       PGDATA: /data/postgres
     volumes:
       - ./data/pg:/data/postgres
+
+  nest-app:
+    container_name: brain-ag-nest
+    build:
+      context: . # Define que o Dockerfile está na raiz do projeto
+      dockerfile: Dockerfile # Nome esperado do arquivo Dockerfile
+    ports:
+      - 3000:3000 # Porta padrão para aplicações NestJS
+    environment:
+      # Variáveis de ambiente para conectar ao banco de dados
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: docker
+      DATABASE_NAME: brain-ag
+    depends_on:
+      - postgres # Garante que o PostgreSQL seja iniciado antes da aplicação NestJS
+    volumes:
+      - ./src:/app # Mapeia o código fonte local para o container

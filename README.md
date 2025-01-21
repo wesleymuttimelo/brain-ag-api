@@ -1,99 +1,118 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Segue abaixo um exemplo de um arquivo `README.md` que explica como rodar o projeto utilizando Docker e Docker Compose:
+# Brain AG API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Peço desculpas, mas devido ao tempo disponível, não consegui realizar todos os testes unitários necessários. Para demonstrar meu conhecimento sobre testes, desenvolvi um exemplo no arquivo `create-farmer.use-case.spec.ts`.
+Em relação à documentação, também não consegui finalizá-la por completo, mas utilizei o **`@nestjs/swagger`** para documentar o mínimo necessário. Você pode acessar a documentação gerada automaticamente na URL: http://localhost:3000/api ().
+Neste projeto, tentei implementar uma **arquitetura limpa em camadas**, seguindo conceitos como **SOLID**, **injeção de dependências** e boas práticas recomendadas.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este projeto é uma API utilizando **NestJS** e **Prisma**, configurada para rodar em um ambiente **Docker**. O banco de dados utilizado é PostgreSQL, gerenciado pelo Docker Compose.
+## Pré-requisitos
+Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
+- [Docker]()
+- [Docker Compose]()
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
-
-```bash
-$ npm install
+## Configuração do Banco de Dados
+Certifique-se de que o arquivo de configuração do banco de dados (`.env`) esteja configurado corretamente antes de iniciar o ambiente. Exemplo de variáveis no `.env`:
+``` 
+DATABASE_URL=postgresql://user:password@pg_container_name:5432/database_name?schema=public
 ```
+**Notas:**
+- Substitua `user`, `password`, e `database_name` pelas informações adequadas.
+- O `pg_container_name` deve ser o nome do container PostgreSQL (definido no `docker-compose.yml`).
 
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+## Como rodar o projeto com Docker Compose
+Siga as etapas abaixo para iniciar o projeto utilizando `docker-compose.yml`.
+### 1. Clone o repositório
+Clone este repositório em sua máquina:
+``` bash
+git clone https://seu-repositorio.git
+cd brain-ag-api
 ```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+### 2. Configure o ambiente
+Crie um arquivo `.env` na raiz do projeto (ou copie o arquivo de exemplo `.env.example`) e ajuste as variáveis com base na configuração de seu ambiente:
+``` bash
+cp .env.example .env
 ```
+**Exemplo de variáveis:**
+- `DATABASE_URL` → (url de conexão do banco)
+- `PORT` → Porta para o NestJS (ex.: 3000)
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
+### 3. Suba o ambiente com Docker Compose
+Com tudo configurado, use o comando abaixo para inicializar os containers (API e banco de dados):
+``` bash
+docker compose up --build
 ```
+Esse comando irá:
+- Criar e iniciar os containers `brain-ag-nest` (API NestJS) e `brain-ag-pg` (PostgreSQL).
+- Construir as imagens, instalar as dependências e gerar o Prisma Client automaticamente.
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Após alguns segundos, a aplicação estará rodando.
+### 4. Acesse a aplicação
+Acesse a API através do navegador ou de ferramentas como **Postman** e **Insomnia**. Por padrão, ela estará acessível em:
+- **API principal:** `http://localhost:3000`
+- **Documentação Swagger:** `http://localhost:3000/api`
 
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Caso tenha alterado a porta no arquivo `.env`, substitua o valor correspondente.
+### 5. Gerenciando o Prisma
+Caso queira rodar comandos do Prisma (como migração ou geração do client) diretamente no container, abra um terminal e execute os comandos dentro do **container da aplicação**:
+1. Acesse o container da API NestJS:
+``` bash
+   docker exec -it brain-ag-nest sh
+```
+1. Execute comandos do Prisma como:
+``` bash
+   npx prisma migrate dev
+   npx prisma studio
+```
+### Comandos Úteis
+#### Subir o ambiente
+``` bash
+docker compose up --build
+```
+#### Parar o ambiente
+``` bash
+docker compose down
+```
+#### Parar e remover volumes (dados do banco serão apagados!)
+``` bash
+docker compose down --volumes
+```
+#### Ver os logs dos containers
+``` bash
+docker compose logs -f
+```
+### Estrutura Geral do Projeto
+``` bash
+brain-ag-api/
+├── src/
+│   ├── app.module.ts         # Módulo principal da aplicação
+│   ├── database/
+│   │   ├── prisma.service.ts # Configuração do Prisma
+│   │   ├── schema.prisma     # Arquivo do Prisma Schema
+│   └── main.ts               # Arquivo de inicialização principal do NestJS
+├── package.json              # Gerenciador de dependências
+├── Dockerfile                # Imagem do container para aplicação
+├── docker-compose.yml        # Configuração Docker Compose
+├── .env                      # Variáveis de ambiente
+└── README.md                 # Documentação do Projeto
+```
+### Passos para Configuração Local (Opcional)
+Caso prefira rodar o projeto fora do Docker, siga os passos abaixo:
+1. Instale as dependências:
+``` bash
+   npm install
+```
+1. Certifique-se de que o PostgreSQL está rodando e configure o arquivo `.env`.
+2. Gera os artefatos do Prisma:
+``` bash
+   npx prisma generate
+```
+1. Rode as migrações:
+``` bash
+   npx prisma migrate dev
+```
+1. Inicie o servidor NestJS:
+``` bash
+   npm run start:dev
+```
+A aplicação estará disponível em `http://localhost:3000`.

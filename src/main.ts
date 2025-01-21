@@ -18,7 +18,7 @@ async function bootstrap() {
         .setTitle('Brain API')
         .setDescription('API para gestão produtores rurais')
         .setVersion('1.0')
-        .addTag('Farmers') // Tags (usadas no agrupamento dos endpoints)
+        .addTag('Farmers')
         .build();
 
     const document = SwaggerModule.createDocument(app, config);

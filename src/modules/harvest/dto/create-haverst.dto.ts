@@ -41,17 +41,6 @@ export class CreateHaverstDto {
     @IsInt()
     year: number;
 
-    // @ApiProperty({
-    //     description: 'Lista de culturas plantadas nesta safra',
-    //     type: [CropDto], // Declara o tipo como um array de CropDto
-    //     required: false, // Torna opcional
-    // })
-    // @IsOptional()
-    // @IsArray()
-    // @ValidateNested({ each: true }) // Valida cada item como CropDto
-    // @Type(() => CropDto) // Transforma os objetos para a classe CropDto
-    // crops?: CropDto[];
-
     @ApiProperty({
         description: 'Identificador único da fazenda responsável pela safra (UUID)',
         example: '123e4567-e89b-12d3-a456-426614174001',

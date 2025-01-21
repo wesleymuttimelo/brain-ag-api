@@ -83,31 +83,4 @@ export class Farmer {
     })
     properties?: properties[]
 }
-//
-// export class Harvest {
-//     id: string
-//     date: Date
-//     cropId: string
-//     crop: Crop
-// }
-//
-// export class Farm {
-//     id:              String
-//     name:           String
-//     city:             String
-//     state:           String
-//     totalArea:       number
-//     arableArea:       number
-//     vegetationArea:   number
-//     farmerId:         String
-//     farmer:           Farmer
-//     crops:            Crop[]
-//     harvests:        Harvest[]
-// }
-//
-// export class Crop {
-//     id:       String
-//     name:      String
-//     harvestId: String
-//     farmId:   String
-// }
+

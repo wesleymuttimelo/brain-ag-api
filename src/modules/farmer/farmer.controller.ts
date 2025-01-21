@@ -29,7 +29,7 @@ export class FarmerController {
     @ApiResponse({ status: 400, description: 'Erro ao criar um agricultor.' })
     @ApiBody({
         description: 'Dados necessários para criar um agricultor',
-        type: CreateFarmerDto, // Especifica o DTO do corpo
+        type: CreateFarmerDto,
     })
     async create(@Body() createFarmerDto: CreateFarmerDto) {
         return this.createFarmerUseCase.execute(createFarmerDto);

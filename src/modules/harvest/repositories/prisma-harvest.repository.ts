@@ -34,7 +34,7 @@ export class PrismaHarvestRepository implements IHarvestRepository {
         })
     }
     async delete(id: string): Promise<void> {
-        await this.prisma.harvest.delete({
+        await  this.prisma.harvest.delete({
             where: {
                 id
             }
